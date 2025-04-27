@@ -11,7 +11,6 @@ A starting point for Neovim that is:
 * Completely Documented
 
 **NOT** a Neovim distribution, but instead a starting point for your configuration.
-
 ## Installation
 
 ### Install Neovim
@@ -28,7 +27,8 @@ External Requirements:
 - [ripgrep](https://github.com/BurntSushi/ripgrep#installation)
 - Clipboard tool (xclip/xsel/win32yank or other depending on the platform)
 - A [Nerd Font](https://www.nerdfonts.com/): optional, provides various icons
-  - if you have it set `vim.g.have_nerd_font` in `init.lua` to true
+  - If you have it set `vim.g.have_nerd_font` in `init.lua` to true
+  - On Ubuntu, download a Nerd Font, unzip to `~/.local/share/fonts`, and rebuild the font cache `fc-cache -fv`
 - Emoji fonts (Ubuntu only, and only if you want emoji!) `sudo apt install fonts-noto-color-emoji`
 - Language Setup:
   - If you want to write Typescript, you need `npm`
