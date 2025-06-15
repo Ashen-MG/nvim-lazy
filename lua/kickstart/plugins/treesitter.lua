@@ -22,6 +22,9 @@ return {
         'typescript',
         'php',
         'rust',
+        'gdscript',
+        'godot_resource',
+        'gdshader',
       },
       -- Autoinstall languages that are not installed
       auto_install = true,

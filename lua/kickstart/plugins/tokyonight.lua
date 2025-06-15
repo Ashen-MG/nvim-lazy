@@ -14,6 +14,14 @@ return {
         styles = {
           comments = { italic = false }, -- Disable italics in comments
         },
+        on_highlights = function(hl)
+          -- See https://lospec.com/palette-list/tokyo-night
+          -- Default seems to be #565f89
+          hl.comment = { fg = '#737aa2' }
+          hl.perlComment = { fg = '#737aa2' }
+          hl.Comment = { fg = '#737aa2' }
+          -- hl.IlluminatedWordText = { bg = "#ffffff", fg = "#ffffff" }
+        end,
       }
 
       -- Load the colorscheme here.
