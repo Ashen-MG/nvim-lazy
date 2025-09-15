@@ -1,5 +1,3 @@
--- TODO: gd does not work on node_modules (e.g. sequelize)
-
 -- LSP Plugins
 return {
   {
@@ -267,7 +265,7 @@ return {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
-        'eslint',
+        'eslint_d',
         'ts_ls',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }

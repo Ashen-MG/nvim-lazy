@@ -114,6 +114,8 @@ return {
       vim.keymap.set('n', '<leader>sn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[S]earch [N]eovim files' })
+
+      require('kickstart.plugins.telescope.multigrep').setup()
     end,
   },
 }

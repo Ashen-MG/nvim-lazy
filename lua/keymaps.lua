@@ -40,12 +40,25 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
 -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
 
-vim.keymap.set('n', '<leader>f', vim.lsp.buf.format)
+vim.keymap.set('n', '<leader>F', function()
+  vim.lsp.buf.code_action {
+    apply = true,
+    context = {
+      only = { 'source.removeUnused.ts' },
+      diagnostics = {},
+    },
+  }
+
+  vim.defer_fn(function()
+    vim.lsp.buf.format()
+  end, 500)
+end)
 
 -- replace all occurences under the cursor
-vim.keymap.set('n', '<leader>s', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set('n', '<leader>s', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gc<Left><Left><Left>]])
+vim.keymap.set('v', '<leader>s', [[y:%s/<C-r>"/<C-r>"/gc<Left><Left><Left>]])
 
--- replace all occurences under the cursor with confirmation
-vim.keymap.set('n', '<leader>S', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gc<Left><Left><Left>]])
+vim.keymap.set('n', '<leader>S', [[:.,$s/\<<C-r><C-w>\>/<C-r><C-w>/gc<Left><Left><Left>]])
+vim.keymap.set('v', '<leader>S', [[y:.,$s/<C-r>"/<C-r>"/gc<Left><Left><Left>]])
 
 -- vim: ts=2 sts=2 sw=2 et
