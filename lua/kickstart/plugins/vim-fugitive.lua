@@ -26,10 +26,10 @@ return {
       end
     end
 
-    local function checkout(branchName)
-      vim.cmd.Git { 'fetch origin ' .. branchName }
-      -- vim.cmd.Git({'checkout --recurse-submodules '..branchName})
-      vim.cmd.Git { 'checkout ' .. branchName }
+    local function checkout(branch)
+      vim.cmd.Git { 'fetch origin ' .. branch }
+      -- vim.cmd.Git({'checkout --recurse-submodules '..branch})
+      vim.cmd.Git { 'checkout ' .. branch }
       -- vim.cmd.Git({'pull --recurse-submodules'}) -- checkout submodules
       vim.cmd.Git { 'pull' }
       vim.cmd.Git { 'submodule update' } -- checkout submodules
@@ -57,6 +57,23 @@ return {
       end
     end
 
+    local function printLinkToFile(branch)
+      -- local filename = vim.fn.expand '%:t'
+      local relative_filepath = vim.fn.expand '%:.'
+      local absolute_filepath = vim.fn.expand '%:p'
+      if absolute_filepath:find 'cannypack' then
+        local pieces = vim.split(absolute_filepath, '/cannypack/modoc/')
+        local repo = vim.split(pieces[2], '/')[1]
+        local link = 'https://github.com/cannypack/' .. repo
+        print(link .. '/pulls', link .. '/blob/' .. branch .. '/' .. relative_filepath)
+      elseif absolute_filepath:find 'risewolves' then
+        local pieces = vim.split(absolute_filepath, '/risewolves/')
+        local repo = vim.split(pieces[2], '/')[1]
+        local link = 'https://github.com/1fxsol/' .. repo
+        print(link .. '/pulls', link .. '/blob/' .. branch .. '/' .. relative_filepath)
+      end
+    end
+
     autocmd('BufWinEnter', {
       group = VimFugtive,
       pattern = '*',
@@ -75,7 +92,7 @@ return {
         vim.keymap.set('n', '<leader>P', function()
           vim.cmd.Git { 'stash' }
           vim.cmd.Git { 'pull --rebase' }
-          vim.cmd.Git { 'stash pop' }
+          vim.cmd.Git { 'stash apply stash@{0}' }
           vim.cmd.Git { 'submodule update' } -- checkout submodules
         end, opts)
 
@@ -106,7 +123,7 @@ return {
     vim.api.nvim_create_user_command('Gchs', function(opts)
       vim.cmd.Git { 'stash' }
       checkout(opts.args)
-      vim.cmd.Git { 'stash pop' }
+      vim.cmd.Git { 'stash apply stash@{0}' }
     end, { nargs = 1 })
 
     vim.api.nvim_create_user_command('Uncommit', function()
@@ -115,5 +132,12 @@ return {
 
     vim.keymap.set('n', 'gu', '<cmd>diffget //2<CR>')
     vim.keymap.set('n', 'gh', '<cmd>diffget //3<CR>')
+    vim.keymap.set('n', '<leader>gc', function()
+      local branch = getBranchName()
+      printLinkToFile(branch)
+    end)
+    vim.keymap.set('n', '<leader>go', function()
+      printLinkToFile 'develop'
+    end)
   end,
 }

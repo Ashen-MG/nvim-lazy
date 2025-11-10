@@ -46,6 +46,18 @@ return {
         },
       },
     },
+    --[[
+    TODO: Add support for .hbs
+    config = function(_, opts)
+      local parsers = require 'nvim-treesitter.parsers'
+
+      local parser_config = parsers.get_parser_configs()
+      parser_config.html.filetype_to_parsername = 'hbs'
+
+      require('nvim-treesitter.configs').setup(opts)
+    end,
+    --]]
+
     -- There are additional nvim-treesitter modules that you can use to interact
     -- with nvim-treesitter. You should go explore a few and see what interests you:
     --

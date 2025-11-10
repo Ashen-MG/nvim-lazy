@@ -53,6 +53,8 @@ Kickstart Guide:
 
     (If you already know the Neovim basics, you can skip this step.)
 
+    ToDo: Remove this
+
   Once you've completed that, you can continue working through **AND READING** the rest
   of the kickstart init.lua.
 
