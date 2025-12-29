@@ -1,7 +1,19 @@
 -- [[ Setting options ]]
 -- See `:help vim.opt`
--- NOTE: You can change these options as you wish!
---  For more options, you can see `:help option-list`
+-- NOTE: For more options, you can see `:help option-list`
+
+-- Set <space> as the leader key
+-- See `:help mapleader`
+--  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
+-- Set to true if you have a Nerd Font installed and selected in the terminal
+vim.g.have_nerd_font = true
+
+-- Vim bound <C-c> in insert mode to SQL Completion
+-- This prevents `SQLComplete: the dbext plugin must be loaded for dynamic SQL completion` error when exiting the insert mode with <C-c> and you start quickly moving
+vim.g.omni_sql_no_default_maps = 1
 
 -- Make line numbers default
 vim.opt.number = true
